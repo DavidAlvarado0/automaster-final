@@ -4,16 +4,18 @@ const defaultProducts = [
     { id: 2, name: 'Batería 12V 600Amps', price: 85.00, stock: 5 },
     { id: 3, name: 'Juego de Bujías (4)', price: 12.00, stock: 20 },
     { id: 4, name: 'Filtro de Aire Universal', price: 8.50, stock: 15 },
-    { id: 5, name: 'Llantas R15 (Unidad)', price: 60.00, stock: 2 } // Stock bajo para probar
+    { id: 5, name: 'Llantas R15 (Unidad)', price: 60.00, stock: 2 }
 ];
 
-// Cargar productos del LocalStorage o usar los default si es la primera vez
+// Cargar productos del LocalStorage o usar los default
 let products = JSON.parse(localStorage.getItem('automaster_products')) || defaultProducts;
 
 // --- ELEMENTOS DEL DOM ---
 const loginForm = document.getElementById('loginForm');
 const addProductForm = document.getElementById('addProductForm');
 const btnLogout = document.getElementById('btnLogout');
+const reservationModal = document.getElementById('reservation-modal');
+const reservationForm = document.getElementById('reservationForm');
 
 // --- EVENT LISTENERS ---
 
@@ -29,12 +31,12 @@ if(loginForm) {
         } else if (user === 'cliente' && pass === '1234') {
             loadView('view-client', 'Cliente Estimado');
         } else {
-            alert('Credenciales incorrectas.\n\nPrueba con:\nUsuario: admin | Pass: 1234\nUsuario: cliente | Pass: 1234');
+            alert('Credenciales incorrectas.\nPrueba con:\nUser: admin | Pass: 1234\nUser: cliente | Pass: 1234');
         }
     });
 }
 
-// 2. Manejo de Agregar Producto (Solo Admin)
+// 2. Agregar Producto (Solo Admin)
 if(addProductForm) {
     addProductForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -44,41 +46,56 @@ if(addProductForm) {
 
         if(name && price && stock) {
             addProduct(name, price, stock);
-            e.target.reset(); // Limpiar formulario
+            e.target.reset(); 
         }
     });
 }
 
-// 3. Logout
-if(btnLogout) {
-    btnLogout.addEventListener('click', () => {
-        location.reload(); // Recargar página para "cerrar sesión"
+// 3. Confirmar Reserva (Cliente - Formulario Modal)
+if(reservationForm) {
+    reservationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Obtener datos del formulario modal
+        const prodId = parseInt(document.getElementById('modal-prod-id').value);
+        const clientName = document.getElementById('client-name').value;
+        const branch = document.getElementById('client-branch').value;
+        
+        // Ejecutar lógica de reserva
+        confirmReservation(prodId, clientName, branch);
     });
 }
 
-// --- FUNCIONES LÓGICAS ---
+// 4. Logout
+if(btnLogout) {
+    btnLogout.addEventListener('click', () => {
+        location.reload(); 
+    });
+}
+
+// --- FUNCIONES DE NAVEGACIÓN ---
 
 function loadView(viewId, userName) {
-    // 1. Ocultar todas las secciones
+    // Ocultar todas las secciones
     document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
     
-    // 2. Mostrar la sección deseada
+    // Mostrar la sección deseada
     document.getElementById(viewId).classList.add('active');
     
-    // 3. Configurar Navbar
+    // Configurar Navbar
     document.getElementById('navbar').style.display = 'flex';
     document.getElementById('welcome-msg').innerText = `Hola, ${userName}`;
 
-    // 4. Renderizar datos según la vista
+    // Renderizar datos según la vista
     if(viewId === 'view-admin') renderInventory();
     if(viewId === 'view-client') renderCatalog();
 }
 
-// --- ADMIN: LÓGICA DE INVENTARIO ---
+// --- FUNCIONES ADMIN ---
 
 function renderInventory() {
     const tbody = document.getElementById('inventory-body');
-    tbody.innerHTML = ''; // Limpiar tabla
+    tbody.innerHTML = ''; 
 
     products.forEach(p => {
         const row = `
@@ -98,26 +115,21 @@ function renderInventory() {
 }
 
 function addProduct(name, price, stock) {
-    const newProduct = { 
-        id: Date.now(), // ID único basado en fecha
-        name, 
-        price, 
-        stock 
-    };
-    
+    const newProduct = { id: Date.now(), name, price, stock };
     products.push(newProduct);
     saveData();
-    renderInventory(); // Actualizar tabla visualmente
-    showNotification('Producto agregado correctamente al sistema.');
+    renderInventory();
+    showNotification('Producto agregado correctamente.');
 }
 
-// --- CLIENTE: LÓGICA DE CATÁLOGO ---
+// --- FUNCIONES CLIENTE Y MODAL ---
 
 function renderCatalog() {
     const grid = document.getElementById('catalog-grid');
-    grid.innerHTML = ''; // Limpiar grid
+    grid.innerHTML = '';
 
     products.forEach(p => {
+        // El botón ahora llama a openModal()
         const card = `
             <div class="product-card">
                 <div class="stock-badge">Stock: ${p.stock}</div>
@@ -126,9 +138,9 @@ function renderCatalog() {
                 <p class="price">$${p.price.toFixed(2)}</p>
                 <button 
                     class="btn-reserve" 
-                    onclick="reserveProduct(${p.id})" 
+                    onclick="openModal(${p.id})" 
                     ${p.stock === 0 ? 'disabled' : ''}>
-                    ${p.stock > 0 ? 'Reservar para Retiro' : 'Agotado'}
+                    ${p.stock > 0 ? 'Reservar' : 'Agotado'}
                 </button>
             </div>
         `;
@@ -136,19 +148,44 @@ function renderCatalog() {
     });
 }
 
-// Esta función debe estar global (window) para que el HTML onclick la encuentre
-window.reserveProduct = function(id) {
+// Abrir Modal
+window.openModal = function(id) {
     const product = products.find(p => p.id === id);
+    if(!product || product.stock <= 0) return;
+
+    // Llenar datos en el modal
+    document.getElementById('modal-prod-id').value = product.id;
+    document.getElementById('modal-prod-name').innerText = product.name;
+    document.getElementById('modal-prod-price').innerText = product.price.toFixed(2);
     
-    if (product && product.stock > 0) {
-        product.stock--; // Restar 1 al stock
-        saveData(); // Guardar en persistencia
-        renderCatalog(); // Volver a pintar la pantalla con el nuevo número
-        showNotification(`¡Reservado! Has apartado: ${product.name}`);
-    } else {
-        alert('Lo sentimos, este producto ya no tiene stock.');
-    }
+    // Mostrar modal
+    reservationModal.classList.add('active');
 };
+
+// Cerrar Modal
+window.closeModal = function() {
+    reservationModal.classList.remove('active');
+    document.getElementById('reservationForm').reset(); // Limpiar campos
+};
+
+// Lógica Final de Reserva
+function confirmReservation(id, clientName, branch) {
+    const product = products.find(p => p.id === id);
+
+    if (product && product.stock > 0) {
+        product.stock--; // Restar inventario
+        saveData(); // Guardar
+        renderCatalog(); // Refrescar pantalla
+        closeModal(); // Cerrar modal
+        
+        // Notificación con datos
+        showNotification(`¡Reserva Exitosa!\nCliente: ${clientName}\nRetiro en: ${branch}`);
+    } else {
+        alert('Error: El producto ya no tiene stock disponible.');
+        closeModal();
+        renderCatalog();
+    }
+}
 
 // --- UTILIDADES ---
 
@@ -161,8 +198,7 @@ function showNotification(msg) {
     notif.innerText = msg;
     notif.style.display = 'block';
     
-    // Ocultar después de 3 segundos
     setTimeout(() => { 
         notif.style.display = 'none'; 
-    }, 3000);
+    }, 4000);
 }
