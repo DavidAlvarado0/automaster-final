@@ -37,7 +37,7 @@ const defaultProducts = [
         name: 'Llantas R15 (Unidad)', 
         price: 60.00, 
         stock: 2, 
-        image: 'img/llantas.jpg' 
+        image: 'img/filtro.jpg' 
     }
 ];
 
