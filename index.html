@@ -3,108 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoMaster - Soluciones Automotrices</title>
-    <style>
-        /* Estilos generales para cumplir con 'Creación de sitio web' */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
-        
-        /* Encabezado Profesional */
-        header { background-color: #004d99; color: white; padding: 1rem 0; text-align: center; }
-        header h1 { margin: 0; font-size: 2.5rem; }
-        header p { margin: 5px 0 0; font-style: italic; }
-
-        /* Navegación */
-        nav { background-color: #003366; overflow: hidden; display: flex; justify-content: center; }
-        nav a { color: white; padding: 14px 20px; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        nav a:hover { background-color: #ddd; color: black; }
-
-        /* Sección Hero (Principal) */
-        .hero { background: white; padding: 40px 20px; text-align: center; border-bottom: 4px solid #ff6600; }
-        .btn { background-color: #ff6600; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; }
-        .btn:hover { background-color: #e65c00; }
-
-        /* Contenedor de Servicios y Catálogo */
-        .container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
-        
-        .section-title { text-align: center; color: #004d99; margin-top: 40px; }
-        
-        /* Grid de tarjetas para el catálogo */
-        .grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .card { background: white; border: 1px solid #ddd; border-radius: 8px; width: 300px; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .card h3 { color: #003366; }
-        .price { font-size: 1.2rem; color: #28a745; font-weight: bold; margin: 10px 0; }
-
-        /* Footer */
-        footer { background-color: #333; color: white; text-align: center; padding: 20px 0; margin-top: 40px; font-size: 0.9rem; }
-    </style>
+    <title>AutoMaster | Expertos en Automotriz</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <header>
-        <h1>AUTOMASTER</h1>
-        <p>Expertos en Mecánica y Repuestos - San Miguel</p>
-    </header>
-
-    <nav>
-        <a href="#">Inicio</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#catalogo">Catálogo en Nube</a>
-        <a href="#contacto">Contacto</a>
+    <nav class="navbar">
+        <div class="logo">Auto<span>Master</span></div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto" class="btn-nav">Contactar</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
     </nav>
 
-    <section class="hero">
-        <h2>Bienvenido a la nueva experiencia digital</h2>
-        <p>Hemos migrado nuestra infraestructura a la nube para servirte mejor.</p>
-        <br>
-        <a href="#catalogo" class="btn">Ver Repuestos Disponibles</a>
+    <header id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Tu vehículo en las mejores manos</h1>
+            <p>Servicio automotriz integral, diagnóstico computarizado y repuestos de calidad.</p>
+            <a href="#contacto" class="btn-primary">Agendar Cita</a>
+        </div>
+    </header>
+
+    <section id="servicios" class="services">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-container">
+            <div class="service-card">
+                <i class="fas fa-tools"></i>
+                <h3>Mecánica General</h3>
+                <p>Reparación de motor, frenos, suspensión y mantenimiento preventivo.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-car-battery"></i>
+                <h3>Diagnóstico Eléctrico</h3>
+                <p>Escaneo computarizado y reparación de sistemas eléctricos.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-oil-can"></i>
+                <h3>Cambio de Aceite</h3>
+                <p>Lubricantes de alta calidad para extender la vida de tu motor.</p>
+            </div>
+        </div>
     </section>
 
-    <div class="container">
-        <h2 class="section-title" id="servicios">Nuestros Servicios</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>🛠️ Taller General</h3>
-                <p>Diagnóstico computarizado y reparación de motores con técnicos certificados.</p>
-            </div>
-            <div class="card">
-                <h3>🛢️ Mantenimiento</h3>
-                <p>Cambios de aceite, filtros y revisión de frenos para tu seguridad.</p>
-            </div>
-            <div class="card">
-                <h3>☁️ Consulta Web</h3>
-                <p>Nuevo sistema en Azure para verificar stock de piezas en tiempo real.</p>
-            </div>
+    <section id="contacto" class="contact">
+        <div class="contact-container">
+            <h2>Contáctanos</h2>
+            <p>Déjanos tus datos y te llamaremos para confirmar tu cita.</p>
+            
+            <form id="contactForm">
+                <input type="text" placeholder="Tu Nombre" required>
+                <input type="email" placeholder="Tu Correo" required>
+                <textarea rows="5" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                <button type="submit" class="btn-primary">Enviar Mensaje</button>
+            </form>
         </div>
-
-        <h2 class="section-title" id="catalogo">Catálogo de Repuestos</h2>
-        <p style="text-align: center; color: #666;">(Conectado a Base de Datos Azure SQL)</p>
-        
-        <div class="grid">
-            <div class="card">
-                <h3>Aceite Sintético 5W-30</h3>
-                <p>Para motores de alto rendimiento.</p>
-                <div class="price">$38.00</div>
-                <a href="#" class="btn">Reservar</a>
-            </div>
-            <div class="card">
-                <h3>Batería 12V LTH</h3>
-                <p>Libre de mantenimiento, garantía 24 meses.</p>
-                <div class="price">$85.00</div>
-                <a href="#" class="btn">Reservar</a>
-            </div>
-            <div class="card">
-                <h3>Pastillas de Freno</h3>
-                <p>Cerámica de alta duración para Toyota Corolla.</p>
-                <div class="price">$45.00</div>
-                <a href="#" class="btn">Reservar</a>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <footer>
-        <p>Proyecto de Cátedra - Cómputo III - Universidad de Oriente (UNIVO)</p>
-        <p>&copy; 2025 AutoMaster S.A. de C.V.</p>
+        <p>&copy; 2024 AutoMaster. Todos los derechos reservados.</p>
+        <div class="socials">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
     </footer>
 
+    <script src="js/app.js"></script>
 </body>
 </html>
