@@ -3,80 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoMaster | Expertos en Automotriz</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>AutoMaster App | Gestión y Reservas</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-    <nav class="navbar">
+    <nav class="navbar" id="navbar" style="display: none;">
         <div class="logo">Auto<span>Master</span></div>
-        <ul class="nav-links">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#nosotros">Nosotros</a></li>
-            <li><a href="#contacto" class="btn-nav">Contactar</a></li>
-        </ul>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+        <div class="user-info">
+            <span id="welcome-msg">Hola, Usuario</span>
+            <button class="btn-logout" id="btnLogout">Cerrar Sesión</button>
         </div>
     </nav>
 
-    <header id="inicio" class="hero">
-        <div class="hero-content">
-            <h1>Tu vehículo en las mejores manos</h1>
-            <p>Servicio automotriz integral, diagnóstico computarizado y repuestos de calidad.</p>
-            <a href="#contacto" class="btn-primary">Agendar Cita</a>
-        </div>
-    </header>
+    <div id="notification">Acción realizada con éxito</div>
 
-    <section id="servicios" class="services">
-        <h2>Nuestros Servicios</h2>
-        <div class="services-container">
-            <div class="service-card">
-                <i class="fas fa-tools"></i>
-                <h3>Mecánica General</h3>
-                <p>Reparación de motor, frenos, suspensión y mantenimiento preventivo.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-car-battery"></i>
-                <h3>Diagnóstico Eléctrico</h3>
-                <p>Escaneo computarizado y reparación de sistemas eléctricos.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-oil-can"></i>
-                <h3>Cambio de Aceite</h3>
-                <p>Lubricantes de alta calidad para extender la vida de tu motor.</p>
+    <section id="view-login" class="view-section active">
+        <div class="login-container">
+            <div class="login-card">
+                <h2>Bienvenido</h2>
+                <p>Sistema de Gestión AutoMaster</p>
+                <br>
+                <form id="loginForm">
+                    <input type="text" id="username" placeholder="Usuario (admin o cliente)" required>
+                    <input type="password" id="password" placeholder="Contraseña (1234)" required>
+                    <button type="submit" class="btn-submit">Ingresar</button>
+                </form>
+                <p class="login-hint">
+                    *Prueba: <b>admin/1234</b> o <b>cliente/1234</b>
+                </p>
             </div>
         </div>
     </section>
 
-    <section id="contacto" class="contact">
-        <div class="contact-container">
-            <h2>Contáctanos</h2>
-            <p>Déjanos tus datos y te llamaremos para confirmar tu cita.</p>
+    <section id="view-admin" class="view-section">
+        <div class="container">
+            <h2>Panel de Administración</h2>
+            <p>Gestión de Inventario y Productos</p>
+            <br>
             
-            <form id="contactForm">
-                <input type="text" placeholder="Tu Nombre" required>
-                <input type="email" placeholder="Tu Correo" required>
-                <textarea rows="5" placeholder="¿En qué podemos ayudarte?" required></textarea>
-                <button type="submit" class="btn-primary">Enviar Mensaje</button>
-            </form>
+            <div class="card-panel">
+                <h3>Agregar Nuevo Producto</h3>
+                <form id="addProductForm" class="form-group">
+                    <input type="text" id="new-prod-name" placeholder="Nombre del Producto" required>
+                    <input type="number" id="new-prod-price" placeholder="Precio ($)" step="0.01" required>
+                    <input type="number" id="new-prod-stock" placeholder="Cantidad Inicial" required>
+                    <button type="submit" class="btn-submit btn-small">Guardar</button>
+                </form>
+            </div>
+
+            <div class="card-panel">
+                <h3>Inventario Actual</h3>
+                <div class="table-responsive">
+                    <table id="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2024 AutoMaster. Todos los derechos reservados.</p>
-        <div class="socials">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <section id="view-client" class="view-section">
+        <div class="container">
+            <h2>Catálogo de Repuestos</h2>
+            <p>Reserva en línea y retira en nuestro taller.</p>
+            <br>
+            <div class="products-grid" id="catalog-grid">
+                </div>
         </div>
-    </footer>
+    </section>
 
     <script src="js/app.js"></script>
 </body>
