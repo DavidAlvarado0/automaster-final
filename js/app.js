@@ -9,14 +9,14 @@ const defaultProducts = [
         name: 'Aceite Sintético 5W-30', 
         price: 25.00, 
         stock: 10, 
-        image: 'img/aceite.jpg'  // Asegúrate de tener una foto llamada aceite.jpg
+        image: 'img/aceite.png'  
     },
     { 
         id: 2, 
         name: 'Batería 12V 600Amps', 
         price: 85.00, 
         stock: 5, 
-        image: 'img/bateria.jpg' // Asegúrate de tener una foto llamada bateria.jpg
+        image: 'img/bateria.jpg' 
     },
     { 
         id: 3, 
@@ -41,17 +41,15 @@ const defaultProducts = [
     }
 ];
 
-// Cargar productos (Usamos 'v3' para forzar que cargue tus nuevas fotos locales)
 let products = JSON.parse(localStorage.getItem('automaster_db_v3')) || defaultProducts;
 
-// --- ELEMENTOS DEL DOM ---
+
 const loginForm = document.getElementById('loginForm');
 const addProductForm = document.getElementById('addProductForm');
 const btnLogout = document.getElementById('btnLogout');
 const reservationModal = document.getElementById('reservation-modal');
 const reservationForm = document.getElementById('reservationForm');
 
-// --- EVENT LISTENERS ---
 
 // 1. Login
 if(loginForm) {

@@ -201,10 +201,10 @@ tr:hover { background-color: #f8fbff; }
 .btn-confirm { background-color: var(--success); color: white; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; flex: 1; }
 .btn-confirm:hover { background-color: #268e3b; }
 .btn-cancel:hover { background-color: #e1ecf4; }
-/* IMÁGENES DE PRODUCTO */
+
 .product-img {
     width: 100%;
-    height: 180px; /* Esto hace que todas tengan el mismo tamaño */
+    height: 180px;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 15px;
