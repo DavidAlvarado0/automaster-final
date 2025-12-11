@@ -1,7 +1,7 @@
-/* --- VARIABLES & COLORES (TEMA AZUL) --- */
+/* --- VARIABLES & COLORES (TEMA AZUL MICROSOFT/AZURE) --- */
 :root {
-    --primary: #0078d4;      /* Azul Brillante (Tipo Azure/Windows) */
-    --dark: #002b5c;         /* Azul Marino Profundo (Para Navbar y Textos) */
+    --primary: #0078d4;      /* Azul Brillante (Tipo Azure) */
+    --dark: #002b5c;         /* Azul Marino Profundo (Navbar y Textos) */
     --light: #f0f6fc;        /* Fondo muy claro con tinte azulado */
     --success: #2ea043;      /* Verde suave para confirmaciones */
     --white: #ffffff;
@@ -22,7 +22,7 @@ body {
 
 /* --- NAVBAR --- */
 .navbar {
-    background-color: var(--dark); /* Ahora es Azul Marino */
+    background-color: var(--dark);
     color: var(--white);
     padding: 1rem 5%;
     display: flex;
@@ -39,12 +39,12 @@ body {
     font-weight: bold; 
     letter-spacing: 1px;
 }
-.logo span { color: #60cdff; /* Un azul cian más claro para resaltar */ }
+.logo span { color: #60cdff; /* Azul cian para resaltar */ }
 
 .user-info { display: flex; gap: 15px; align-items: center; }
 
 .btn-logout {
-    background: rgba(255, 255, 255, 0.15); /* Transparente sutil */
+    background: rgba(255, 255, 255, 0.15);
     color: var(--white);
     border: 1px solid rgba(255,255,255,0.3);
     padding: 8px 15px;
@@ -121,7 +121,7 @@ table { width: 100%; border-collapse: collapse; }
 th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
 th { background-color: #f1f8ff; color: var(--dark); font-weight: bold; border-bottom: 2px solid var(--primary); }
 tr:hover { background-color: #f8fbff; }
-.stock-warning { color: #d73a49; font-weight: bold; } /* Rojo solo para alertas */
+.stock-warning { color: #d73a49; font-weight: bold; }
 
 /* --- CATÁLOGO CLIENTE --- */
 .products-grid {
@@ -133,11 +133,26 @@ tr:hover { background-color: #f8fbff; }
     border: 1px solid #e1e4e8;
 }
 .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 120, 212, 0.15); border-color: var(--primary); }
+
+/* IMÁGENES DE PRODUCTO */
+.product-img {
+    width: 100%;
+    height: 180px; /* Altura fija para uniformidad */
+    object-fit: cover; /* Recorte inteligente */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+}
+
+/* Icono por defecto si no hay imagen */
+.product-card i { font-size: 4rem; color: var(--primary); margin: 20px 0; opacity: 0.9; display: block; }
+
 .stock-badge {
     position: absolute; top: 15px; right: 15px; background: #e1ecf4;
     color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+    z-index: 2; /* Asegura que quede sobre la imagen */
 }
-.product-card i { font-size: 4rem; color: var(--primary); margin: 20px 0; opacity: 0.9; }
+
 .product-card h3 { margin: 10px 0; font-size: 1.2rem; color: var(--dark); }
 .price { color: var(--dark); font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; }
 
@@ -160,7 +175,7 @@ tr:hover { background-color: #f8fbff; }
 /* --- MODAL (POP-UP) --- */
 .modal {
     display: none; position: fixed; z-index: 2000; left: 0; top: 0;
-    width: 100%; height: 100%; background-color: rgba(0, 43, 92, 0.5); /* Azul oscuro transparente */
+    width: 100%; height: 100%; background-color: rgba(0, 43, 92, 0.5);
     backdrop-filter: blur(5px); align-items: center; justify-content: center;
     animation: fadeIn 0.3s;
 }
